@@ -5,7 +5,9 @@
 #include "chess_board.h"
 #include "min_max.h"
 #include "chess_moves.h"
-#include "chess_moves_saves.h"
+#include "chess_moves_save.h"
+#include "chess_moves_saves_white.h"
+#include "chess_moves_saves_black.h"
 
 int main() {
     chessMoveSave save = makeStartingSave();
@@ -15,12 +17,12 @@ int main() {
     chessBoard board;
     clear_board(board);
 
-    load_piece(board, 4, 5, WHITE_ROOK_NUMBER);
+    load_piece(board, 4, 4, BLACK_PAWN_NUMBER);
 //    load_piece(board, 3, 6, BLACK_PAWN_NUMBER);
 //    load_piece(board, 5, 6, BLACK_PAWN_NUMBER);
 
     while(save->done != 3){
-        get_moves_white_save(board, &move, save);
+        get_moves_black_save(board, &move, save);
         highlightChessMove(board, move);
         printf("------------------\n");
     }
