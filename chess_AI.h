@@ -8,6 +8,10 @@
 #define WHITE_PLAYERS_TURN 'w'
 #define BLACK_PLAYERS_TURN 'b'
 
-chessMove * get_move_to_move(chessBoard board, char player_turn)
+chessMove * get_move_to_move(chessBoard board, char player_turn);
+
+char get_next_turn(char player_turn);
+
+void run_AI_turn(chessBoard board, char * player_turn);
 
 #endif //CHESS_CHESS_AI_H
