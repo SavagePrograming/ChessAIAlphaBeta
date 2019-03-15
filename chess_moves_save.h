@@ -7,6 +7,9 @@
 
 #include <stdint.h>
 
+/**
+ * A save structure that helps with generating one move at a time
+ */
 typedef struct chess_move_save{
     uint8_t X:3;
     uint8_t Y:3;
@@ -15,6 +18,6 @@ typedef struct chess_move_save{
     uint8_t done:4;
 } * chessMoveSave;
 
-chessMoveSave makeStartingSave();
+chessMoveSave make_starting_save();
 
 #endif //CHESS_CHESS_MOVES_SAVE_H

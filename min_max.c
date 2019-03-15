@@ -1,5 +1,10 @@
 //
 // Created by wills on 2/15/2019.
+// Contains functions used in the developemnt and testing of:
+//      Alpha-Beta
+//      Min-Max
+//      Min-Max using a tree
+//      Generating a min max tree
 //
 #include <stdint.h>
 #include <stdlib.h>
@@ -9,9 +14,15 @@
 #define SIZE 5
 #define MIN 'n'
 #define MAX 'x'
+#define MIN_VALUE_DEFAULT -128
+#define MAX_VALUE_DEFAULT 127
 
+/**
+ * Adds a minMax node as a child to a parent
+ * @param parent The parent who will get a child
+ * @param child  The child to be added
+ */
 void add_child_node(minMaxNode parent, minMaxNode child){
-
     if (parent != NULL) {
         if (parent->numberChildren % SIZE == 0) {
             minMaxNode *newChildArray = calloc(parent->numberChildren + SIZE, sizeof(minMaxNode));
@@ -29,14 +40,25 @@ void add_child_node(minMaxNode parent, minMaxNode child){
     child->parent = parent;
 }
 
-char get_min_or_max(char minOrMax){
-    if (minOrMax == MIN){
+/**
+ * Gets the max character given min
+ * Or the min character given max
+ * @param min_or_max The current minMax character
+ * @return The opposite of @param min_or_max
+ */
+char get_min_or_max(char min_or_max){
+    if (min_or_max == MIN){
         return MAX;
     }else{
         return MIN;
     }
 }
 
+/**
+ * Sets each minMax node to it's proper minMax state
+ * @param parent The current parent
+ * @param child The child who needs to be setup
+ */
 void restructure_min_max_tree(minMaxNode parent, minMaxNode child){
     if (parent == NULL || parent->minORMax == MIN){
         child->minORMax = MAX;
@@ -48,15 +70,26 @@ void restructure_min_max_tree(minMaxNode parent, minMaxNode child){
     }
 }
 
+/**
+ * Makes a new minMax node
+ * @param parent The parent of the current node
+ * @return A new minMax node
+ */
 minMaxNode build_min_max_node(minMaxNode parent) {
     minMaxNode newNode = calloc(1, sizeof(struct min_max_node));
-    newNode->highestScore = 127;
-    newNode->lowestScore = -128;
+    newNode->highestScore = MAX_VALUE_DEFAULT;
+    newNode->lowestScore = MIN_VALUE_DEFAULT;
     newNode->numberChildren = 0;
     add_child_node(parent, newNode);
     return newNode;
 }
 
+/**
+ * Builds a new minMax node with a score
+ * @param parent The parent of the current node
+ * @param score The score of the current node
+ * @return A new node set up with a score
+ */
 minMaxNode build_min_max_node_scored(minMaxNode parent, int8_t score){
     minMaxNode newNode = calloc(1, sizeof(struct min_max_node));
     newNode->highestScore = score;
@@ -66,17 +99,24 @@ minMaxNode build_min_max_node_scored(minMaxNode parent, int8_t score){
     return newNode;
 }
 
-minMaxNode biuld_min_max_tree(unsigned int size, int8_t *numbers, uint16_t childrenNumber){
-    if (size > childrenNumber){
+/**
+ * Builds a new minMax tree from an array of numbers
+ * @param size The size of the array
+ * @param numbers The array of numbers to make into a tree
+ * @param children_number The number of children each node can have
+ * @return A minMax node with children representing the @param numbers
+ */
+minMaxNode biuld_min_max_tree(unsigned int size, int8_t *numbers, uint16_t children_number){
+    if (size > children_number){
 
         minMaxNode parent = build_min_max_node(NULL);
-        for (uint8_t childNumber = 0; childNumber < childrenNumber - 1; childNumber++){
-            minMaxNode child = biuld_min_max_tree(size / childrenNumber,
-                                                  childNumber * (size / childrenNumber) + numbers, childrenNumber);
+        for (uint8_t childNumber = 0; childNumber < children_number - 1; childNumber++){
+            minMaxNode child = biuld_min_max_tree(size / children_number,
+                                                  childNumber * (size / children_number) + numbers, children_number);
             add_child_node(parent, child);
         }
-        minMaxNode child = biuld_min_max_tree((size - (childrenNumber - 1) * (size / childrenNumber)),
-                                              (childrenNumber - 1) * (size / childrenNumber) + numbers, childrenNumber);
+        minMaxNode child = biuld_min_max_tree((size - (children_number - 1) * (size / children_number)),
+                                              (children_number - 1) * (size / children_number) + numbers, children_number);
         add_child_node(parent, child);
         return parent;
     }else{
@@ -90,6 +130,12 @@ minMaxNode biuld_min_max_tree(unsigned int size, int8_t *numbers, uint16_t child
     }
 }
 
+/**
+ * Builds a binary minMax tree from an array of numbers
+ * @param size The size of the array
+ * @param numbers The array of numbers
+ * @return A minMax node with children representing @param numbers
+ */
 minMaxNode biuld_min_max_tree_binary(int size, int8_t *numbers){
     if (size > 2){
         minMaxNode parent = build_min_max_node(NULL);
@@ -109,6 +155,11 @@ minMaxNode biuld_min_max_tree_binary(int size, int8_t *numbers){
     }
 }
 
+/**
+ * Prints a minMax tree
+ * @param tree The minMax tree to print
+ * @param depth the current depth in the tree
+ */
 void print_min_max_tree(minMaxNode tree, int depth){
         for (uint8_t i = 0; i < depth; i++){
             printf("\t");
@@ -123,16 +174,25 @@ void print_min_max_tree(minMaxNode tree, int depth){
         }
 }
 
+/**
+ * Sets a minMax tree up with the default values again
+ * @param tree The tree to reset
+ */
 void reset_min_max(minMaxNode tree){
     for (uint8_t i = 0; i < tree->numberChildren; i++) {
-        tree->highestScore = 127;
-        tree->lowestScore = -128;
+        tree->highestScore = MAX_VALUE_DEFAULT;
+        tree->lowestScore = MIN_VALUE_DEFAULT;
         if (tree->children[i] != 0){
             reset_min_max(tree->children[i]);
         }
     }
 }
 
+/**
+ * Runs the minMax algorithm on a minMax tree
+ * @param tree The tree to run min max on
+ * @return The maximum or minimum of all the children Tree
+ */
 int8_t run_min_max(minMaxNode tree){
     for (uint8_t i = 0; i < tree->numberChildren; i++){
         int8_t out = run_min_max(tree->children[i]);
@@ -155,6 +215,13 @@ int8_t run_min_max(minMaxNode tree){
     }
 }
 
+/**
+ * Runs the alpha-Beta algorithm on a minMax tree
+ * @param tree The tree to run alpha beta on
+ * @param top The largest value possible
+ * @param bottom The smallest value possible
+ * @return The maximum or minimum of all the children Tree
+ */
 int8_t run_alpha_beta(minMaxNode tree, int8_t top, int8_t bottom){
     for (uint8_t i = 0; i < tree->numberChildren; i++){
         int8_t out = run_alpha_beta(tree->children[i], top, bottom);
@@ -196,6 +263,16 @@ int8_t run_alpha_beta(minMaxNode tree, int8_t top, int8_t bottom){
     }
 }
 
+/**
+ * Runs alpha beta on a tree represented by an array without building the tree
+ * @param size The current size of the array
+ * @param numbers The current array of numbers
+ * @param childrenNumber The number of children a minMax node could have
+ * @param minOrMax The min or max value of the current level
+ * @param top The largest value possible
+ * @param bottom The smallest value possible
+ * @return The maximum or minimum of all the children Tree
+ */
 int8_t treeless_alpha_beta(unsigned int size,
                            int8_t *numbers, uint16_t childrenNumber,
                            char minOrMax,

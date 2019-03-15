@@ -5,6 +5,14 @@
 #ifndef CHESS_MIN_MAX_H
 #define CHESS_MIN_MAX_H
 
+/**
+ * A minMax node
+ * numberChildren is the number of children the node has
+ * highestScore is the highest score the node can have
+ * lowestScore is the lowest score the node can have
+ * children is the array of pointers to this nodes children
+ * parent is the parent of this node
+ */
 typedef struct min_max_node{
     uint8_t numberChildren;
     int8_t highestScore;
@@ -32,7 +40,7 @@ int8_t run_alpha_beta(minMaxNode tree, int8_t top, int8_t bottom);
 
 void reset_min_max(minMaxNode tree);
 
-minMaxNode biuld_min_max_tree(unsigned int size, int8_t *numbers, uint16_t childrenNumber);
+minMaxNode biuld_min_max_tree(unsigned int size, int8_t *numbers, uint16_t children_number);
 
 int8_t treeless_alpha_beta(unsigned int size, int8_t *numbers, uint16_t childrenNumber,
                            char minOrMax, int8_t top, int8_t bottom);

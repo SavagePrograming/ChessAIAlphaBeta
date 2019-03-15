@@ -1,5 +1,6 @@
 //
 // Created by wills on 3/12/2019.
+// Contains functions for generating White moves using a save
 //
 
 #include <stdlib.h>
@@ -8,6 +9,13 @@
 #include "chess_moves.h"
 #include "chess_moves_saves_white.h"
 
+/**
+ * Given a board @param board and a move save @param save
+ * Generates the next move of a white pawn, at the location in @param save
+ * @param board The board used to calculate the move
+ * @param move The move to setup
+ * @param save The save to use in calculating the next move
+ */
 void get_moves_white_pawn_save(chessBoard board, chessMove *move, chessMoveSave save) {
     if (save->moveX == save->X && save->moveY == save->Y) {
         if (save->moveX < 7 && save->moveY < 7 &&
@@ -58,6 +66,13 @@ void get_moves_white_pawn_save(chessBoard board, chessMove *move, chessMoveSave 
     make_chess_move_board(move, save->X, save->Y, save->moveX, save->moveY, board);
 }
 
+/**
+ * Given a board @param board and a move save @param save
+ * Generates the next move of a white rook, at the location in @param save
+ * @param board The board used to calculate the move
+ * @param move The move to setup
+ * @param save The save to use in calculating the next move
+ */
 void get_moves_white_rook_save(chessBoard board, chessMove *move, chessMoveSave save) {
     if (save->moveX == save->X && save->moveY == save->Y) {
         if (save->moveX < 7 && !peice_number_is_white(get_piece(board, save->X + 1, save->Y))) {
@@ -129,7 +144,13 @@ void get_moves_white_rook_save(chessBoard board, chessMove *move, chessMoveSave 
     save->done = 0;
 }
 
-
+/**
+ * Given a board @param board and a move save @param save
+ * Generates the next move of a white bishop, at the location in @param save
+ * @param board The board used to calculate the move
+ * @param move The move to setup
+ * @param save The save to use in calculating the next move
+ */
 void get_moves_white_bishop_save(chessBoard board, chessMove *move, chessMoveSave save) {
     if (save->moveX == save->X && save->moveY == save->Y) {
         if (save->moveX < 7 && save->moveY < 7 &&
@@ -223,6 +244,13 @@ void get_moves_white_bishop_save(chessBoard board, chessMove *move, chessMoveSav
     save->done = 0;
 }
 
+/**
+ * Given a board @param board and a move save @param save
+ * Generates the next move of a white knight, at the location in @param save
+ * @param board The board used to calculate the move
+ * @param move The move to setup
+ * @param save The save to use in calculating the next move
+ */
 void get_moves_white_knight_save(chessBoard board, chessMove *move, chessMoveSave save) {
     if (save->moveY == save->Y && save->moveX == save->X) {
         if (save->X < 7 && save->Y < 6 &&
@@ -416,6 +444,13 @@ void get_moves_white_knight_save(chessBoard board, chessMove *move, chessMoveSav
     save->done = 0;
 }
 
+/**
+ * Given a board @param board and a move save @param save
+ * Generates the next move of a white queen, at the location in @param save
+ * @param board The board used to calculate the move
+ * @param move The move to setup
+ * @param save The save to use in calculating the next move
+ */
 void get_moves_white_queen_save(chessBoard board, chessMove *move, chessMoveSave save) {
     if (save->moveX == save->X && save->moveY == save->Y) {
         if (save->X < 7 && save->Y < 7 &&
@@ -655,6 +690,13 @@ void get_moves_white_queen_save(chessBoard board, chessMove *move, chessMoveSave
     save->done = 0;
 }
 
+/**
+ * Given a board @param board and a move save @param save
+ * Generates the next move of a white king, at the location in @param save
+ * @param board The board used to calculate the move
+ * @param move The move to setup
+ * @param save The save to use in calculating the next move
+ */
 void get_moves_white_king_save(chessBoard board, chessMove *move, chessMoveSave save) {
     if (save->moveY == save->Y && save->moveX == save->X) {
         if (save->X < 7 && save->Y < 7 &&
@@ -848,6 +890,13 @@ void get_moves_white_king_save(chessBoard board, chessMove *move, chessMoveSave 
     save->done = 0;
 }
 
+/**
+ * Given a board @param board and a move save @param save
+ * Generates the next move of a white piece
+ * @param board The board used to calculate the move
+ * @param move The move to setup
+ * @param save The save to use in calculating the next move
+ */
 void get_moves_white_save(chessBoard board, chessMove *move, chessMoveSave save) {
     uint8_t piece_num;
     if (save->done) {

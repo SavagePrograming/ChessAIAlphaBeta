@@ -10,7 +10,7 @@
 #include "chess_moves_saves_black.h"
 
 int main() {
-    chessMoveSave save = makeStartingSave();
+    chessMoveSave save = make_starting_save();
 
     chessMove move;
 
