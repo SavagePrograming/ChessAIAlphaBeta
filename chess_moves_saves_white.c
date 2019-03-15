@@ -12,21 +12,21 @@ void get_moves_white_pawn_save(chessBoard board, chessMove *move, chessMoveSave 
     if (save->moveX == save->X && save->moveY == save->Y) {
 //        printf("1>");
         if (save->moveX < 7 && save->moveY < 7 &&
-            peice_number_is_black(get_piece(board, save->X + 1, save->Y + 1))) {
+            peice_number_is_black(get_piece(board, save->X + 1, save->Y - 1))) {
 //            printf("1>\n");
             save->moveX = save->X + 1;
-            save->moveY = save->Y + 1;
+            save->moveY = save->Y - 1;
             save->done = 0;
         } else if (save->moveX > 0 && save->moveY < 7 &&
-                   peice_number_is_black(get_piece(board, save->X - 1, save->Y + 1))) {
+                   peice_number_is_black(get_piece(board, save->X - 1, save->Y - 1))) {
 //            printf("2>\n");
             save->moveX = save->X - 1;
-            save->moveY = save->Y + 1;
+            save->moveY = save->Y - 1;
             save->done = 0;
         } else if (save->moveY < 7 &&
-                   peice_number_is_blank(get_piece(board, save->X, save->Y + 1))) {
+                   peice_number_is_blank(get_piece(board, save->X, save->Y - 1))) {
 //            printf("3>\n");
-            save->moveY = save->Y + 1;
+            save->moveY = save->Y - 1;
             save->moveX = save->X;
             save->done = 1;
         } else {
@@ -37,13 +37,15 @@ void get_moves_white_pawn_save(chessBoard board, chessMove *move, chessMoveSave 
     } else if (save->moveX == save->X + 1) {
 //        printf("2>");
         if (save->moveX > 0 && save->moveY < 7 &&
-            peice_number_is_black(get_piece(board, save->X - 1, save->Y + 1))) {
+            peice_number_is_black(get_piece(board, save->X - 1, save->Y - 1))) {
 //            printf("2>\n");
+            save->moveY = save->Y - 1;
             save->moveX = save->X - 1;
             save->done = 0;
         } else if (save->moveY < 7 &&
-                   peice_number_is_blank(get_piece(board, save->X, save->Y + 1))) {
+                   peice_number_is_blank(get_piece(board, save->X, save->Y - 1))) {
 //            printf("3>\n");
+            save->moveY = save->Y - 1;
             save->moveX = save->X;
             save->done = 1;
         } else {
@@ -54,8 +56,9 @@ void get_moves_white_pawn_save(chessBoard board, chessMove *move, chessMoveSave 
     } else if (save->moveX == save->X - 1) {
 //        printf("3>");
         if (save->moveY < 7 &&
-            peice_number_is_blank(get_piece(board, save->X, save->Y + 1))) {
+            peice_number_is_blank(get_piece(board, save->X, save->Y - 1))) {
 //            printf("3>\n");
+            save->moveY = save->Y - 1;
             save->moveX = save->X;
             save->done = 1;
         } else {
@@ -165,53 +168,53 @@ void get_moves_white_rook_save(chessBoard board, chessMove *move, chessMoveSave 
 
 void get_moves_white_bishop_save(chessBoard board, chessMove *move, chessMoveSave save) {
     if (save->moveX == save->X && save->moveY == save->Y) {
-        printf("1>");
+//        printf("1>");
         if (save->moveX < 7 && save->moveY < 7 &&
             !peice_number_is_white(get_piece(board, save->X + 1, save->Y + 1))) {
-            printf("1>\n");
+//            printf("1>\n");
             save->moveX = save->X + 1;
             save->moveY = save->Y + 1;
         } else if (save->X > 0 &&
                    save->Y < 7 && !peice_number_is_white(get_piece(board, save->X - 1, save->Y + 1))) {
-            printf("2>\n");
+//            printf("2>\n");
             save->moveX = save->X - 1;
             save->moveY = save->Y + 1;
         } else if (save->X > 0 &&
                    save->Y > 0 && !peice_number_is_white(get_piece(board, save->X - 1, save->Y - 1))) {
-            printf("3>\n");
+//            printf("3>\n");
             save->moveX = save->X - 1;
             save->moveY = save->Y - 1;
         } else if (save->X + 1 < 7 &&
                    save->Y > 0 && !peice_number_is_white(get_piece(board, save->X + 1, save->Y - 1))) {
-            printf("4>\n");
+//            printf("4>\n");
             save->moveX = save->X + 1;
             save->moveY = save->Y - 1;
         } else {
-            printf("5>\n");
+//            printf("5>\n");
             save->done = 2;
             return;
         }
     } else if (save->moveX > save->X && save->moveY > save->Y) {
-        printf("2>");
+//        printf("2>");
         if (save->moveX < 7 && save->moveY < 7 &&
             (!peice_number_is_black(get_piece(board, save->moveX, save->moveY))) &&
             (!peice_number_is_white(get_piece(board, save->moveX + 1, save->moveY + 1)))) {
-            printf("1>\n");
+//            printf("1>\n");
             save->moveX = save->moveX + 1;
             save->moveY = save->moveY + 1;
         } else if (save->X > 0 &&
                    save->Y < 7 && !peice_number_is_white(get_piece(board, save->X - 1, save->Y + 1))) {
-            printf("2>\n");
+//            printf("2>\n");
             save->moveX = save->X - 1;
             save->moveY = save->Y + 1;
         } else if (save->X > 0 &&
                    save->Y > 0 && !peice_number_is_white(get_piece(board, save->X - 1, save->Y - 1))) {
-            printf("3>\n");
+//            printf("3>\n");
             save->moveX = save->X - 1;
             save->moveY = save->Y - 1;
         } else if (save->X < 7 &&
                    save->Y > 0 && !peice_number_is_white(get_piece(board, save->X + 1, save->Y - 1))) {
-            printf("4>\n");
+//            printf("4>\n");
             save->moveX = save->X + 1;
             save->moveY = save->Y - 1;
         } else {
@@ -220,21 +223,21 @@ void get_moves_white_bishop_save(chessBoard board, chessMove *move, chessMoveSav
         }
 
     } else if (save->moveX < save->X && save->moveY > save->Y) {
-        printf("3>");
+//        printf("3>");
         if (save->moveX > 0 && save->moveY < 7 &&
             (!peice_number_is_black(get_piece(board, save->moveX, save->moveY))) &&
             (!peice_number_is_white(get_piece(board, save->moveX - 1, save->moveY + 1)))) {
-            printf("2>\n");
+//            printf("2>\n");
             save->moveX = save->moveX - 1;
             save->moveY = save->moveY + 1;
         } else if (save->X > 0 && save->Y > 0 &&
                    !peice_number_is_white(get_piece(board, save->X - 1, save->Y - 1))) {
-            printf("3>\n");
+//            printf("3>\n");
             save->moveX = save->X - 1;
             save->moveY = save->Y - 1;
         } else if (save->X < 7 && save->Y > 0 &&
                    !peice_number_is_white(get_piece(board, save->X + 1, save->Y - 1))) {
-            printf("4>\n");
+//            printf("4>\n");
             save->moveX = save->X + 1;
             save->moveY = save->Y - 1;
         } else {
@@ -243,33 +246,33 @@ void get_moves_white_bishop_save(chessBoard board, chessMove *move, chessMoveSav
         }
 
     } else if (save->moveX < save->X && save->moveY < save->Y) {
-        printf("4>");
+//        printf("4>");
         if (save->moveX > 0 && save->moveY > 0 &&
             (!peice_number_is_black(get_piece(board, save->moveX, save->moveY))) &&
             (!peice_number_is_white(get_piece(board, save->moveX - 1, save->moveY - 1)))) {
-            printf("3>\n");
+//            printf("3>\n");
             save->moveX = save->moveX - 1;
             save->moveY = save->moveY - 1;
         } else if (save->X < 7 && save->Y > 0 &&
                    !peice_number_is_white(get_piece(board, save->X + 1, save->Y - 1))) {
-            printf("4>\n");
+//            printf("4>\n");
             save->moveX = save->X + 1;
             save->moveY = save->Y - 1;
         } else {
-            printf("5>\n");
+//            printf("5>\n");
             save->done = 2;
             return;
         }
     } else if (save->moveX > save->X && save->moveY < save->Y) {
-        printf("5>");
+//        printf("5>");
         if (save->moveX < 7 && save->moveY > 0 &&
             (!peice_number_is_black(get_piece(board, save->moveX, save->moveY))) &&
             (!peice_number_is_white(get_piece(board, save->moveX + 1, save->moveY - 1)))) {
-            printf("4>\n");
+//            printf("4>\n");
             save->moveX = save->moveX + 1;
             save->moveY = save->moveY - 1;
         } else {
-            printf("5>\n");
+//            printf("5>\n");
             save->done = 2;
             return;
         }
@@ -905,8 +908,7 @@ void get_moves_white_king_save(chessBoard board, chessMove *move, chessMoveSave 
 
 void get_moves_white_save(chessBoard board, chessMove *move, chessMoveSave save) {
     uint8_t piece_num;
-    printf("Testing (%d, %d) (%d, %d) > %d   %d\n", save->X, save->Y, save->moveX, save->moveY,
-           get_piece(board, save->X, save->Y), save->done);
+    printf("\t Save (%d, %d) -> (%d, %d)  Done:%d\n", save->X, save->Y, save->moveX, save->moveY, save->done);
 //    printf("Testing %d %d\n", save->X, save->Y);
     if (save->done) {
         if (save->X >= 7) {
@@ -926,22 +928,28 @@ void get_moves_white_save(chessBoard board, chessMove *move, chessMoveSave save)
     piece_num = get_piece(board, save->X, save->Y);
     switch (piece_num) {
         case WHITE_PAWN_NUMBER:
-            return get_moves_white_pawn_save(board, move, save);
+            get_moves_white_pawn_save(board, move, save);
+            break;
         case WHITE_ROOK_NUMBER:
-            return get_moves_white_rook_save(board, move, save);
+            get_moves_white_rook_save(board, move, save);
+            break;
         case WHITE_BISHOP_NUMBER:
-            return get_moves_white_bishop_save(board, move, save);
+            get_moves_white_bishop_save(board, move, save);
+            break;
         case WHITE_KNIGHT_NUMBER:
-            return get_moves_white_knight_save(board, move, save);
+            get_moves_white_knight_save(board, move, save);
+            break;
         case WHITE_QUEEN_NUMBER:
-            return get_moves_white_queen_save(board, move, save);
+            get_moves_white_queen_save(board, move, save);
+            break;
         case WHITE_KING_NUMBER:
-            return get_moves_white_king_save(board, move, save);
+            get_moves_white_king_save(board, move, save);
+            break;
         default:
             save->done = 2;
             break;
     }
     if (save->done == 2) {
-        return get_moves_white_save(board, move, save);
+        get_moves_white_save(board, move, save);
     }
 }

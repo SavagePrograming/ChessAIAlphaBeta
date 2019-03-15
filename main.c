@@ -16,15 +16,41 @@ int main() {
 
     chessBoard board;
     clear_board(board);
+    start_board(board);
 
-    load_piece(board, 4, 4, BLACK_PAWN_NUMBER);
+    chessBoard boardHighlights;
+    clear_board(boardHighlights);
+    start_board(boardHighlights );
+
+//    load_piece(board, 4, 4, WHITE_PAWN_NUMBER);
+//    load_piece(boardHighlights, 4, 4, WHITE_PAWN_NUMBER);
+//
+//    load_piece(board, 4, 3, BLACK_PAWN_NUMBER);
+//    load_piece(boardHighlights, 4, 3, BLACK_PAWN_NUMBER);
+
+
 //    load_piece(board, 3, 6, BLACK_PAWN_NUMBER);
 //    load_piece(board, 5, 6, BLACK_PAWN_NUMBER);
-
+    int x = save->X;
+    int y = save->Y;
     while(save->done != 3){
         get_moves_black_save(board, &move, save);
-        highlightChessMove(board, move);
-        printf("------------------\n");
+        if (save->X != x || save->Y != y){
+            printf("----------------------------------------\n");
+            print_board(boardHighlights);
+            clear_board(boardHighlights);
+            start_board(boardHighlights);
+            x = save->X;
+            y = save->Y;
+        }
+        if (save->done != 3) {
+//            printf("MOVE (%d, %d) -> (%d, %d) takes (%c)\n", move.startX, move.startY, move.endX, move.endY, name_piece(move.target));
+//            printf("STATUS (%d, %d) -> (%d, %d) Done:%d\n", save->X, save->Y, save->moveX, save->moveY, save->done);
+            highlightChessMove(boardHighlights, move);
+//            printf("MOVE (%d, %d) -> (%d, %d) takes (%c)\n", move.startX, move.startY, move.endX, move.endY, name_piece(move.target));
+        }
+//            printf("----------------------------------------\n");
+
     }
 
 //    printf("empty score: %d\n", score_board(board));
@@ -33,7 +59,7 @@ int main() {
 //    start_board(board);
 //    printf("\n-------------------------\n");
 
-    print_board(board);
+//    print_board(boardHighlights);
 
 //    printf("starting score: %d\n", score_board(board));
 //    int COUNT_OF_NUMBERS = 2000000000;
