@@ -16,11 +16,11 @@ int main() {
 
     chessBoard board;
     clear_board(board);
-    start_board(board);
+    start_board_no_pawns(board);
 
     chessBoard boardHighlights;
     clear_board(boardHighlights);
-    start_board(boardHighlights );
+    start_board_no_pawns(boardHighlights );
 
 //    load_piece(board, 4, 4, WHITE_PAWN_NUMBER);
 //    load_piece(boardHighlights, 4, 4, WHITE_PAWN_NUMBER);
@@ -39,7 +39,7 @@ int main() {
             printf("----------------------------------------\n");
             print_board(boardHighlights);
             clear_board(boardHighlights);
-            start_board(boardHighlights);
+            start_board_no_pawns(boardHighlights);
             x = save->X;
             y = save->Y;
         }

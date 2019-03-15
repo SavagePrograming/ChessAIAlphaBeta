@@ -195,6 +195,28 @@ void start_board(chessBoard board){
 
 }
 
+
+void start_board_no_pawns(chessBoard board){
+    load_piece(board, 0, 0, num_piece(BLACK_ROOK_CHAR));
+    load_piece(board, 7, 0, num_piece(BLACK_ROOK_CHAR));
+    load_piece(board, 1, 0, num_piece(BLACK_KNIGHT_CHAR));
+    load_piece(board, 6, 0, num_piece(BLACK_KNIGHT_CHAR));
+    load_piece(board, 2, 0, num_piece(BLACK_BISHOP_CHAR));
+    load_piece(board, 5, 0, num_piece(BLACK_BISHOP_CHAR));
+    load_piece(board, 3, 0, num_piece(BLACK_QUEEN_CHAR));
+    load_piece(board, 4, 0, num_piece(BLACK_KING_CHAR));
+
+    load_piece(board, 0, 7, num_piece(WHITE_ROOK_CHAR));
+    load_piece(board, 7, 7, num_piece(WHITE_ROOK_CHAR));
+    load_piece(board, 1, 7, num_piece(WHITE_KNIGHT_CHAR));
+    load_piece(board, 6, 7, num_piece(WHITE_KNIGHT_CHAR));
+    load_piece(board, 2, 7, num_piece(WHITE_BISHOP_CHAR));
+    load_piece(board, 5, 7, num_piece(WHITE_BISHOP_CHAR));
+    load_piece(board, 3, 7, num_piece(WHITE_QUEEN_CHAR));
+    load_piece(board, 4, 7, num_piece(WHITE_KING_CHAR));
+
+}
+
 int8_t score_peice(char peice){
     switch (peice) {
         case BLANK_CHAR:

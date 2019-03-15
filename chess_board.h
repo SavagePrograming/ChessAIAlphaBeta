@@ -86,5 +86,6 @@ int8_t peice_number_is_black(uint8_t piece_num);
 
 int8_t peice_number_is_blank(uint8_t piece_num);
 
+void start_board_no_pawns(chessBoard board);
 
 #endif //CHESS_CHESS_BOARD_H
