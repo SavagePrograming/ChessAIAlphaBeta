@@ -19,17 +19,17 @@
  */
 void get_moves_black_pawn_save(chessBoard board, chessMove *move, chessMoveSave save) {
     if (save->moveX == save->X && save->moveY == save->Y) {
-        if (save->moveX < 7 && save->moveY > 0 &&
+        if (save->X < 7 && save->Y > 0 &&
             peice_number_is_white(get_piece(board, save->X + 1, save->Y + 1))) {
             save->moveX = save->X + 1;
             save->moveY = save->Y + 1;
             save->done = 0;
-        } else if (save->moveX > 0 && save->moveY > 0 &&
+        } else if (save->X > 0 && save->Y > 0 &&
                    peice_number_is_white(get_piece(board, save->X - 1, save->Y + 1))) {
             save->moveX = save->X - 1;
             save->moveY = save->Y + 1;
             save->done = 0;
-        } else if (save->moveY > 0 &&
+        } else if (save->Y > 0 &&
                    peice_number_is_blank(get_piece(board, save->X, save->Y + 1))) {
             save->moveY = save->Y + 1;
             save->moveX = save->X;
@@ -39,11 +39,11 @@ void get_moves_black_pawn_save(chessBoard board, chessMove *move, chessMoveSave 
             return;
         }
     } else if (save->moveX == save->X + 1) {
-        if (save->moveX > 0 && save->moveY > 0 &&
+        if (save->X > 0 && save->Y > 0 &&
             peice_number_is_white(get_piece(board, save->X - 1, save->Y + 1))) {
             save->moveX = save->X - 1;
             save->done = 0;
-        } else if (save->moveY > 0 &&
+        } else if (save->Y > 0 &&
                    peice_number_is_blank(get_piece(board, save->X, save->Y + 1))) {
             save->moveX = save->X;
             save->done = 1;
@@ -52,7 +52,7 @@ void get_moves_black_pawn_save(chessBoard board, chessMove *move, chessMoveSave 
             return;
         }
     } else if (save->moveX == save->X - 1) {
-        if (save->moveY > 0 &&
+        if (save->Y > 0 &&
             peice_number_is_blank(get_piece(board, save->X, save->Y + 1))) {
             save->moveX = save->X;
             save->done = 1;

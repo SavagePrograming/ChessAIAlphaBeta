@@ -6,6 +6,7 @@
 //
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "chess_board.h"
 #include "chess_moves.h"
 
@@ -1126,7 +1127,8 @@ chessMove * get_moves_black(chessBoard board, uint8_t *size) {
  * @param move The move to run
  */
 void run_chess_move(chessBoard board, chessMove move) {
-    load_piece(board, move.endX, move.endY, get_piece(board, move.startX, move.startX));
+    printf("%d\n", get_piece(board, move.startX, move.startY));
+    load_piece(board, move.endX, move.endY, get_piece(board, move.startX, move.startY));
     load_piece(board, move.startX, move.startY, BLANK_NUMBER);
 }
 
