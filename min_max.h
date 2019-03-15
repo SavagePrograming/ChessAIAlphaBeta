@@ -42,7 +42,7 @@ void reset_min_max(minMaxNode tree);
 
 minMaxNode biuld_min_max_tree(unsigned int size, int8_t *numbers, uint16_t children_number);
 
-int8_t treeless_alpha_beta(unsigned int size, int8_t *numbers, uint16_t childrenNumber,
-                           char minOrMax, int8_t top, int8_t bottom);
+int8_t treeless_alpha_beta(unsigned int size, int8_t *numbers, uint16_t children_number,
+                           char min_or_max, int8_t top, int8_t bottom);
 
 #endif //CHESS_MIN_MAX_H

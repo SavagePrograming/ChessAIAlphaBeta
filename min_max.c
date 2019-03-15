@@ -267,22 +267,22 @@ int8_t run_alpha_beta(minMaxNode tree, int8_t top, int8_t bottom){
  * Runs alpha beta on a tree represented by an array without building the tree
  * @param size The current size of the array
  * @param numbers The current array of numbers
- * @param childrenNumber The number of children a minMax node could have
- * @param minOrMax The min or max value of the current level
+ * @param children_number The number of children a minMax node could have
+ * @param min_or_max The min or max value of the current level
  * @param top The largest value possible
  * @param bottom The smallest value possible
  * @return The maximum or minimum of all the children Tree
  */
 int8_t treeless_alpha_beta(unsigned int size,
-                           int8_t *numbers, uint16_t childrenNumber,
-                           char minOrMax,
+                           int8_t *numbers, uint16_t children_number,
+                           char min_or_max,
                            int8_t top, int8_t bottom){
-    if (size > childrenNumber){
-        for (uint16_t childNumber = 0; childNumber < childrenNumber - 1; childNumber++){
-            int8_t out = treeless_alpha_beta(size / childrenNumber,
-                                             childNumber * (size / childrenNumber) + numbers,
-                                             childrenNumber, get_min_or_max(minOrMax), top, bottom);
-            if (minOrMax == MIN){
+    if (size > children_number){
+        for (uint16_t childNumber = 0; childNumber < children_number - 1; childNumber++){
+            int8_t out = treeless_alpha_beta(size / children_number,
+                                             childNumber * (size / children_number) + numbers,
+                                             children_number, get_min_or_max(min_or_max), top, bottom);
+            if (min_or_max == MIN){
                 if (bottom > out){
                     return out;
                 }
@@ -308,10 +308,10 @@ int8_t treeless_alpha_beta(unsigned int size,
             }
         }
 
-        int8_t out = treeless_alpha_beta(size - (childrenNumber - 1) * (size / childrenNumber),
-                                         (childrenNumber - 1) * (size / childrenNumber) + numbers,
-                                         childrenNumber, get_min_or_max(minOrMax), top, bottom);
-        if (minOrMax == MIN){
+        int8_t out = treeless_alpha_beta(size - (children_number - 1) * (size / children_number),
+                                         (children_number - 1) * (size / children_number) + numbers,
+                                         children_number, get_min_or_max(min_or_max), top, bottom);
+        if (min_or_max == MIN){
             if (bottom > out){
                 return out;
             }
@@ -329,16 +329,16 @@ int8_t treeless_alpha_beta(unsigned int size,
             }
         }
 
-        if (minOrMax == MIN){
+        if (min_or_max == MIN){
             return top;
         }else{
             return bottom;
         }
     }else if (size > 1){
         for (uint16_t childNumber = 0; childNumber < size; childNumber++){
-            int8_t out = treeless_alpha_beta(1, childNumber + numbers, childrenNumber, get_min_or_max(minOrMax), top,
+            int8_t out = treeless_alpha_beta(1, childNumber + numbers, children_number, get_min_or_max(min_or_max), top,
                                              bottom);
-            if (minOrMax == MIN){
+            if (min_or_max == MIN){
                 if (bottom > out){
                     return out;
                 }
@@ -357,7 +357,7 @@ int8_t treeless_alpha_beta(unsigned int size,
             }
         }
 
-        if (minOrMax == MIN){
+        if (min_or_max == MIN){
             return top;
         }else{
             return bottom;
