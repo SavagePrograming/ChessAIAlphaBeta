@@ -9,10 +9,6 @@
 #define MIN 'n'
 #define MAX 'x'
 
-#define WHITE_PLAYERS_TURN 'w'
-#define BLACK_PLAYERS_TURN 'b'
-
-chessMove * get_move_to_move(chessBoard board, char player_turn)
 
 
 
