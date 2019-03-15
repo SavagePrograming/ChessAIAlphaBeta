@@ -1160,3 +1160,16 @@ void highlight_chess_move(chessBoard board, chessMove move) {
 void reverse_chess_move_highlight(chessBoard board, chessMove move) {
     load_piece(board, move.endX, move.endY, move.taken);
 }
+
+/**
+ * Copies a move from one address to another
+ * @param from the address to copy from
+ * @param to the address to copy to
+ */
+void copy_move(chessMove * from, chessMove * to){
+    to->endY = from->endY;
+    to->endX = from->endX;
+    to->startY = from->startY;
+    to->startX = from->startX;
+    to->taken = from->taken;
+}

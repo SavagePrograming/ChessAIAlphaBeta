@@ -67,4 +67,6 @@ void highlight_chess_move(chessBoard board, chessMove move);
 
 void reverse_chess_move_highlight(chessBoard board, chessMove move);
 
+void copy_move(chessMove * from, chessMove * to);
+
 #endif //CHESS_CHESS_MOVES_H
