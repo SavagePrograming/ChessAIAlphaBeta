@@ -20,4 +20,6 @@ typedef struct chess_move_save{
 
 chessMoveSave make_starting_save();
 
+void break_down_save(chessMoveSave chess_move_save);
+
 #endif //CHESS_CHESS_MOVES_SAVE_H
