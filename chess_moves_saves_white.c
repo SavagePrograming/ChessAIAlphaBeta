@@ -18,17 +18,17 @@
  */
 void get_moves_white_pawn_save(chessBoard board, chessMove *move, chessMoveSave save) {
     if (save->moveX == save->X && save->moveY == save->Y) {
-        if (save->X < 7 && save->Y < 7 &&
+        if (save->X < 7 && save->Y > 0 &&
             peice_number_is_black(get_piece(board, save->X + 1, save->Y - 1))) {
             save->moveX = save->X + 1;
             save->moveY = save->Y - 1;
             save->done = 0;
-        } else if (save->X > 0 && save->Y < 7 &&
+        } else if (save->X > 0 && save->Y > 0 &&
                    peice_number_is_black(get_piece(board, save->X - 1, save->Y - 1))) {
             save->moveX = save->X - 1;
             save->moveY = save->Y - 1;
             save->done = 0;
-        } else if (save->Y < 7 &&
+        } else if (save->Y > 0 &&
                    peice_number_is_blank(get_piece(board, save->X, save->Y - 1))) {
             save->moveY = save->Y - 1;
             save->moveX = save->X;
@@ -38,12 +38,12 @@ void get_moves_white_pawn_save(chessBoard board, chessMove *move, chessMoveSave 
             return;
         }
     } else if (save->moveX == save->X + 1) {
-        if (save->X > 0 && save->Y < 7 &&
+        if (save->X > 0 && save->Y > 0 &&
             peice_number_is_black(get_piece(board, save->X - 1, save->Y - 1))) {
             save->moveY = save->Y - 1;
             save->moveX = save->X - 1;
             save->done = 0;
-        } else if (save->Y < 7 &&
+        } else if (save->Y > 0 &&
                    peice_number_is_blank(get_piece(board, save->X, save->Y - 1))) {
             save->moveY = save->Y - 1;
             save->moveX = save->X;
@@ -53,7 +53,7 @@ void get_moves_white_pawn_save(chessBoard board, chessMove *move, chessMoveSave 
             return;
         }
     } else if (save->moveX == save->X - 1) {
-        if (save->Y < 7 &&
+        if (save->Y > 0 &&
             peice_number_is_blank(get_piece(board, save->X, save->Y - 1))) {
             save->moveY = save->Y - 1;
             save->moveX = save->X;
