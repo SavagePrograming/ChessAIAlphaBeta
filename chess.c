@@ -1,5 +1,6 @@
 //
 // Created by William on 3/15/2019.
+// Contains functions for general game control
 //
 
 #include <stdint.h>

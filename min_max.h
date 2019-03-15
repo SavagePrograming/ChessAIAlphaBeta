@@ -22,6 +22,8 @@ typedef struct min_max_node{
     char minORMax;
 } * minMaxNode;
 
+char get_min_or_max(char min_or_max);
+
 void add_child_node(minMaxNode parent, minMaxNode child);
 
 minMaxNode build_min_max_node(minMaxNode parent);

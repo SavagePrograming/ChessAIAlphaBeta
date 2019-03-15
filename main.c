@@ -6,10 +6,17 @@
 #include "chess_AI.h"
 #include "chess.h"
 
+#define WHITE_WIN_MESSAGE "White Wins\n"
+#define BLACK_WIN_MESSAGE "Black Wins\n"
+#define STATLEMATE_MESSAGE "Stalemate\n"
+
 int main() {
     char turn = WHITE_PLAYERS_TURN;
     chessBoard board;
     start_board(board);
+    chessMove *moves[250];
+    uint8_t size = 0;
+
 
 //    start_board_no_pawns(board);
 
@@ -18,10 +25,42 @@ int main() {
 
     print_board(board);
 
-    while (run_AI_turn(board, &turn)){
+//    chessMove * move = get_move_to_move(board, turn);
+//    turn = get_next_turn(turn);
+//
+//    while (move != NULL && validate_board(board)) {
+//        run_chess_move(board, *move);
+//        moves[size++] = move;
+//        print_board(board);
+////        char wait = getchar();
+//
+//        move = get_move_to_move(board, turn);
+//        turn = get_next_turn(turn);
+//    }
+//    printf("REVERSING\n");
+//    switch (get_winner(board)){
+//        case WHITE_WINS:
+//            printf(WHITE_WIN_MESSAGE);
+//            break;
+//        case BLACK_WINS:
+//            printf(BLACK_WIN_MESSAGE);
+//            break;
+//        default:
+//            printf(STATLEMATE_MESSAGE);
+//            break;
+//    }
+//    while (size > 0) {
+//        printf("SIZE %d\n", size);
+//        reverse_chess_move(board, *(moves[--size]));
+//        free(moves[size]);
+//        print_board(board);
+//    }
+    while (run_AI_turn(board, &turn)) {
         print_board(board);
 //        char wait = getchar();
     }
+
+
 
 //    printf("empty score: %d\n", score_board(board));
 //    print_board(board);

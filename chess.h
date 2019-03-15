@@ -17,4 +17,6 @@
 
 uint8_t validate_board(chessBoard board);
 
+uint8_t get_winner(chessBoard board);
+
 #endif //CHESS_CHESS_H
