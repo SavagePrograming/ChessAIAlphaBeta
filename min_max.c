@@ -10,15 +10,6 @@
 #define MIN 'n'
 #define MAX 'x'
 
-//typedef struct min_max_node{
-//    uint8_t numberChildren;
-//    int8_t highestScore;
-//    int8_t lowestScore;
-//    struct min_max_node ** children;
-//    struct min_max_node * parent;
-//    char minORMax;
-//} * minMaxNode;
-
 void add_child_node(minMaxNode parent, minMaxNode child){
 
     if (parent != NULL) {
