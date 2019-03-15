@@ -57,7 +57,7 @@ int main() {
 //    }
     while (run_AI_turn(board, &turn)) {
         print_board(board);
-//        char wait = getchar();
+        char wait = getchar();
     }
 
 

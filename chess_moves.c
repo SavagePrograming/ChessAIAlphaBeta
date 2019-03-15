@@ -1173,3 +1173,12 @@ void copy_move(chessMove * from, chessMove * to){
     to->startX = from->startX;
     to->taken = from->taken;
 }
+
+/**
+ * Prints a chess move
+ * @param move The move to print
+ */
+void print_move(chessMove move){
+    printf("Move (%d, %d) -> (%d, %d) takes (%c)\n", move.startX, move.startY,
+            move.endX, move.endY, get_piece_char_from_number(move.taken));
+}
