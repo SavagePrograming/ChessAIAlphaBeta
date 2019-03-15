@@ -5,6 +5,11 @@
 #ifndef CHESS_MIN_MAX_H
 #define CHESS_MIN_MAX_H
 
+#define MIN 'n'
+#define MAX 'x'
+#define MIN_VALUE_DEFAULT -128
+#define MAX_VALUE_DEFAULT 127
+
 /**
  * A minMax node
  * numberChildren is the number of children the node has

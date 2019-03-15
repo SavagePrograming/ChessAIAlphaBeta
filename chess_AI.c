@@ -22,22 +22,25 @@
  */
 chessMove * get_move_to_move(chessBoard board, char player_turn){
     if (player_turn == WHITE_PLAYERS_TURN){
-        chessMoveSave save = make_starting_save();
+
         chessMove * move = malloc(sizeof(chessMove));
-        get_moves_white_save(board, move, save);
-        if (save->done == 3){
-            move = NULL;
+
+        treeless_chess_alpha_beta(MAX, board, 1, move);
+
+        if (move->taken == 15){
+            return NULL;
         }
-        break_down_save(save);
+
         return move;
     }else{
-        chessMoveSave save = make_starting_save();
         chessMove * move = malloc(sizeof(chessMove));
-        get_moves_black_save(board, move, save);\
-        if (save->done == 3){
-            move = NULL;
+
+        treeless_chess_alpha_beta(MIN, board, 1, move);
+
+        if (move->taken == 15){
+            return NULL;
         }
-        break_down_save(save);
+
         return move;
     }
 

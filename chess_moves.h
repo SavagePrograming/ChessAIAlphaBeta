@@ -6,6 +6,7 @@
 #define CHESS_CHESS_MOVES_H
 
 #include "stdint.h"
+#include "chess_board.h"
 
 /**
  * The structure for a chess move

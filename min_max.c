@@ -12,10 +12,6 @@
 #include "min_max.h"
 
 #define SIZE 5
-#define MIN 'n'
-#define MAX 'x'
-#define MIN_VALUE_DEFAULT -128
-#define MAX_VALUE_DEFAULT 127
 
 /**
  * Adds a minMax node as a child to a parent
