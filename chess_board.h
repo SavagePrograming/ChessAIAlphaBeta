@@ -42,7 +42,7 @@
 #define BLACK_KING_CHAR 'k'
 #define OTHER_CHAR '-'
 
-//=========SCORES===========
+//=========PIECE SCORES===========
 #define BLANK_SCORE 0
 
 #define PAWN_SCORE 1
@@ -56,15 +56,20 @@
 
 #include <stdint.h>
 
+/**
+ * This is the representation of a board
+ * each uint32_t represents a row
+ */
 typedef uint32_t chessBoard[8];
 
+//==========FUNCTIONS==============
 unsigned char get_piece(chessBoard board, unsigned char x, unsigned char y);
 
-void load_piece(chessBoard board, unsigned char x, unsigned char y, unsigned char piece);
+void load_piece(chessBoard board, unsigned char x, unsigned char y, unsigned char piece_number);
 
-char name_piece(unsigned char piece_num);
+char get_piece_char_from_number(unsigned char piece_number);
 
-unsigned char num_piece(char piece_name);
+unsigned char get_piece_number_from_char(char piece_char);
 
 void print_board(chessBoard board);
 
@@ -74,17 +79,17 @@ void clear_board(chessBoard board);
 
 int8_t score_board(chessBoard board);
 
-int8_t score_row(chessBoard board, int8_t row);
+int8_t score_row(chessBoard board, int8_t row_index);
 
-int8_t score_peice_number(uint8_t piece_num);
+int8_t score_peice_number(uint8_t piece_number);
 
-int8_t score_peice(char peice);
+int8_t score_peice_char(char peice_char);
 
-int8_t peice_number_is_white(uint8_t piece_num);
+int8_t peice_number_is_white(uint8_t piece_number);
 
-int8_t peice_number_is_black(uint8_t piece_num);
+int8_t peice_number_is_black(uint8_t piece_number);
 
-int8_t peice_number_is_blank(uint8_t piece_num);
+int8_t peice_number_is_blank(uint8_t piece_number);
 
 void start_board_no_pawns(chessBoard board);
 

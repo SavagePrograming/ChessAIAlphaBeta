@@ -1,32 +1,62 @@
 //
 // Created by wills on 2/9/2019.
+// Contains functions for generating arrays of possible moves
+// Contains functions for running moves on a board
+// Contains functions for making a new move struct
 //
-
 
 #include <stdlib.h>
 #include "chess_board.h"
 #include "chess_moves.h"
 
-chessMove make_chess_move(chessMove *new, uint8_t startX, uint8_t startY,
-                          uint8_t endX, uint8_t endY, uint8_t target) {
-    new->startX = startX;
-    new->startY = startY;
-    new->endX = endX;
-    new->endY = endY;
-    new->target = target;
+#define MOVES_LENGTH 250
+
+/**
+ * Sets up a move given the data to put into it
+ * @param new The address of the move to be setup
+ * @param start_x The starting x location of the move
+ * @param start_y The starting y location of the move
+ * @param end_x The ending x location of the move
+ * @param end_y The ending y location of the move
+ * @param taken The piece that will be taken if the move is made
+ */
+void make_chess_move(chessMove *new, uint8_t start_x, uint8_t start_y,
+                     uint8_t end_x, uint8_t end_y, uint8_t taken) {
+    new->startX = start_x;
+    new->startY = start_y;
+    new->endX = end_x;
+    new->endY = end_y;
+    new->taken = taken;
 }
 
-chessMove make_chess_move_board(chessMove *new, uint8_t startX, uint8_t startY,
-                                uint8_t endX, uint8_t endY, chessBoard board) {
-    new->startX = startX;
-    new->startY = startY;
-    new->endX = endX;
-    new->endY = endY;
-    new->target = get_piece(board, endX, endY);
+/**
+ * Sets up a move given the data, and using a board to find the taken piece
+ * @param new The address of the move to be setup
+ * @param start_x The starting x location of the move
+ * @param start_y The starting y location of the move
+ * @param end_x The ending x location of the move
+ * @param end_y The ending y location of the move
+ * @param board The board which the move will be made on
+ */
+void make_chess_move_board(chessMove *new, uint8_t start_x, uint8_t start_Y,
+                           uint8_t end_x, uint8_t end_y, chessBoard board) {
+    new->startX = start_x;
+    new->startY = start_Y;
+    new->endX = end_x;
+    new->endY = end_y;
+    new->taken = get_piece(board, end_x, end_y);
 }
 
-
-void get_moves_white_pawn(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a white pawn at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_white_pawn(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     if (x < 7 && y < 7 && peice_number_is_black(get_piece(board, x + 1, y + 1))) {
         make_chess_move_board(moves + *size, x, y, x + 1, y + 1, board);
         (*size)++;
@@ -41,7 +71,16 @@ void get_moves_white_pawn(chessBoard board, uint8_t *size, uint8_t x, uint8_t y,
     }
 }
 
-void get_moves_white_rook(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a white rook at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_white_rook(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
     for (uint8_t newX = x + 1; newX < 8; newX++) {
         piece = get_piece(board, newX, y);
@@ -100,7 +139,17 @@ void get_moves_white_rook(chessBoard board, uint8_t *size, uint8_t x, uint8_t y,
     }
 }
 
-void get_moves_white_bishop(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a white bishop at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_white_bishop(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
 
 
@@ -187,7 +236,17 @@ void get_moves_white_bishop(chessBoard board, uint8_t *size, uint8_t x, uint8_t 
     }
 }
 
-void get_moves_white_knight(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a white knight at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_white_knight(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
     if (x < 7) {
         if (y < 6) {
@@ -255,7 +314,17 @@ void get_moves_white_knight(chessBoard board, uint8_t *size, uint8_t x, uint8_t 
     }
 }
 
-void get_moves_white_queen(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a white queen at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_white_queen(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
     for (uint8_t newX = x + 1; newX < 8; newX++) {
         piece = get_piece(board, newX, y);
@@ -397,7 +466,17 @@ void get_moves_white_queen(chessBoard board, uint8_t *size, uint8_t x, uint8_t y
     }
 }
 
-void get_moves_white_king(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a white king at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_white_king(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
     if (x > 0) {
         piece = get_piece(board, x - 1, y);
@@ -457,8 +536,16 @@ void get_moves_white_king(chessBoard board, uint8_t *size, uint8_t x, uint8_t y,
     }
 }
 
-
-void get_moves_black_pawn(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a black pawn at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_black_pawn(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     if (x < 7 && y > 0 && peice_number_is_black(get_piece(board, x + 1, y - 1))) {
         make_chess_move_board(moves + *size, x, y, x + 1, y - 1, board);
         (*size)++;
@@ -473,7 +560,16 @@ void get_moves_black_pawn(chessBoard board, uint8_t *size, uint8_t x, uint8_t y,
     }
 }
 
-void get_moves_black_rook(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a black rook at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_black_rook(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
     for (uint8_t newX = x + 1; newX < 8; newX++) {
         piece = get_piece(board, newX, y);
@@ -532,7 +628,16 @@ void get_moves_black_rook(chessBoard board, uint8_t *size, uint8_t x, uint8_t y,
     }
 }
 
-void get_moves_black_bishop(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a black bishop at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_black_bishop(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
 
     uint8_t newX = x + 1;
@@ -618,7 +723,16 @@ void get_moves_black_bishop(chessBoard board, uint8_t *size, uint8_t x, uint8_t 
     }
 }
 
-void get_moves_black_knight(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a black knight at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_black_knight(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
     if (x < 7) {
         if (y < 6) {
@@ -686,7 +800,16 @@ void get_moves_black_knight(chessBoard board, uint8_t *size, uint8_t x, uint8_t 
     }
 }
 
-void get_moves_black_queen(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a black queen at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_black_queen(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
     for (uint8_t newX = x + 1; newX < 8; newX++) {
         piece = get_piece(board, newX, y);
@@ -828,7 +951,16 @@ void get_moves_black_queen(chessBoard board, uint8_t *size, uint8_t x, uint8_t y
     }
 }
 
-void get_moves_black_king(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]) {
+/**
+ * Given a board @param board,
+ * Generates all of the moves of a black king at (@param x, @param y)
+ * @param board The board to get the moves from
+ * @param size A pointer to the first free index in @param moves
+ * @param x The x location of the piece to check
+ * @param y The y location of the piece to check
+ * @param moves The array to store the moves in
+ */
+void get_moves_black_king(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[MOVES_LENGTH]) {
     uint8_t piece;
     if (x > 0) {
         piece = get_piece(board, x - 1, y);
@@ -888,10 +1020,16 @@ void get_moves_black_king(chessBoard board, uint8_t *size, uint8_t x, uint8_t y,
     }
 }
 
-chessMove * copyChessMovesToHeap(chessMove moves[250], uint8_t size){
-    chessMove * newMoveArray = malloc(size * sizeof(chessMove));
-    for (uint8_t index = 0; index < size; index++){
-        newMoveArray[index].target = moves[index].target;
+/**
+ * Copies all the moves from a move array into a dynamically allocated array
+ * @param moves The array to copy from
+ * @param size The size of the array
+ * @return A dynamically allocated array of moves of length size
+ */
+chessMove *copy_chess_moves_to_heap(chessMove *moves, uint8_t size) {
+    chessMove *newMoveArray = malloc(size * sizeof(chessMove));
+    for (uint8_t index = 0; index < size; index++) {
+        newMoveArray[index].taken = moves[index].taken;
         newMoveArray[index].endY = moves[index].endY;
         newMoveArray[index].endX = moves[index].endX;
         newMoveArray[index].startY = moves[index].startY;
@@ -900,8 +1038,15 @@ chessMove * copyChessMovesToHeap(chessMove moves[250], uint8_t size){
     return newMoveArray;
 }
 
+/**
+ * Given a board @param board,
+ * Generates all of the white moves on a board
+ * @param board The board to get the moves from
+ * @param size A pointer to the size of the moves returned
+ * @return A dynamically allocated array of moves
+ */
 chessMove * get_moves_white(chessBoard board, uint8_t *size) {
-    chessMove moves[250];
+    chessMove moves[MOVES_LENGTH];
     *size = 0;
     uint8_t piece_num;
     for (uint8_t x = 0; x < 8; x++) {
@@ -931,11 +1076,18 @@ chessMove * get_moves_white(chessBoard board, uint8_t *size) {
             }
         }
     }
-    return copyChessMovesToHeap(moves, *size);
+    return copy_chess_moves_to_heap(moves, *size);
 }
 
+/**
+ * Given a board @param board,
+ * Generates all of the black moves on a board
+ * @param board The board to get the moves from
+ * @param size A pointer to the size of the moves returned
+ * @return A dynamically allocated array of moves
+ */
 chessMove * get_moves_black(chessBoard board, uint8_t *size) {
-    chessMove moves[250];
+    chessMove moves[MOVES_LENGTH];
     *size = 0;
     uint8_t piece_num;
     for (uint8_t x = 0; x < 8; x++) {
@@ -965,23 +1117,44 @@ chessMove * get_moves_black(chessBoard board, uint8_t *size) {
             }
         }
     }
-    return copyChessMovesToHeap(moves, *size);
+    return copy_chess_moves_to_heap(moves, *size);
 }
 
-void runChessMove(chessBoard board, chessMove move){
+/**
+ * Runs a move on a board
+ * @param board The board to be changed
+ * @param move The move to run
+ */
+void run_chess_move(chessBoard board, chessMove move) {
     load_piece(board, move.endX, move.endY, get_piece(board, move.startX, move.startX));
     load_piece(board, move.startX, move.startY, BLANK_NUMBER);
 }
 
-void reverseChessMove(chessBoard board, chessMove move){
+/**
+ * Undoes a move
+ * @param board The board to change back
+ * @param move The move to undo
+ */
+void reverse_chess_move(chessBoard board, chessMove move) {
     load_piece(board, move.startX, move.startY, get_piece(board, move.endX, move.endY));
-    load_piece(board, move.endX, move.endY, move.target);
+    load_piece(board, move.endX, move.endY, move.taken);
 }
 
-void highlightChessMove(chessBoard board, chessMove move){
+/**
+ * Places the Other character at the target location of a move
+ * Used for debugging moves
+ * @param board The board to be changed
+ * @param move The move to be highlighted
+ */
+void highlight_chess_move(chessBoard board, chessMove move) {
     load_piece(board, move.endX, move.endY, OTHER_NUMBER);
 }
 
-void reverseChessMoveHighlight(chessBoard board, chessMove move){
-    load_piece(board, move.endX, move.endY, move.target);
+/**
+ * Fixes a board after a highlight
+ * @param board The board to fix
+ * @param move The move to unhighlight
+ */
+void reverse_chess_move_highlight(chessBoard board, chessMove move) {
+    load_piece(board, move.endX, move.endY, move.taken);
 }

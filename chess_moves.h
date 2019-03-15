@@ -7,19 +7,27 @@
 
 #include "stdint.h"
 
+/**
+ * The structure for a chess move
+ * startX is the start x location
+ * startX is the start y location
+ * endX is the end x location
+ * endY is the end y location
+ * taken is the piece the move will take
+ */
 typedef struct chess_move{
     uint8_t startX:3;
     uint8_t startY:3;
     uint8_t endX:3;
     uint8_t endY:3;
-    uint8_t target:4;
+    uint8_t taken:4;
 } chessMove;
 
-chessMove make_chess_move(chessMove *new, uint8_t startX, uint8_t startY,
-                          uint8_t endX, uint8_t endY, uint8_t target);
+void make_chess_move(chessMove *new, uint8_t startX, uint8_t start_y,
+                          uint8_t end_x, uint8_t end_y, uint8_t taken);
 
-chessMove make_chess_move_board(chessMove *new, uint8_t startX, uint8_t startY,
-                                uint8_t endX, uint8_t endY, chessBoard board);
+void make_chess_move_board(chessMove *new, uint8_t start_x, uint8_t start_Y,
+                                uint8_t end_x, uint8_t end_y, chessBoard board);
 
 void get_moves_white_pawn(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]);
 
@@ -45,18 +53,18 @@ void get_moves_black_queen(chessBoard board, uint8_t *size, uint8_t x, uint8_t y
 
 void get_moves_black_king(chessBoard board, uint8_t *size, uint8_t x, uint8_t y, chessMove moves[250]);
 
-chessMove * copyChessMovesToHeap(chessMove moves[250], uint8_t size);
+chessMove * copy_chess_moves_to_heap(chessMove *moves, uint8_t size);
 
 chessMove * get_moves_white(chessBoard board, uint8_t *size);
 
 chessMove * get_moves_black(chessBoard board, uint8_t *size);
 
-void runChessMove(chessBoard board, chessMove move);
+void run_chess_move(chessBoard board, chessMove move);
 
-void reverseChessMove(chessBoard board, chessMove move);
+void reverse_chess_move(chessBoard board, chessMove move);
 
-void highlightChessMove(chessBoard board, chessMove move);
+void highlight_chess_move(chessBoard board, chessMove move);
 
-void reverseChessMoveHighlight(chessBoard board, chessMove move);
+void reverse_chess_move_highlight(chessBoard board, chessMove move);
 
 #endif //CHESS_CHESS_MOVES_H

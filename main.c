@@ -44,10 +44,10 @@ int main() {
             y = save->Y;
         }
         if (save->done != 3) {
-//            printf("MOVE (%d, %d) -> (%d, %d) takes (%c)\n", move.startX, move.startY, move.endX, move.endY, name_piece(move.target));
+//            printf("MOVE (%d, %d) -> (%d, %d) takes (%c)\n", move.startX, move.startY, move.endX, move.endY, get_piece_char_from_number(move.taken));
 //            printf("STATUS (%d, %d) -> (%d, %d) Done:%d\n", save->X, save->Y, save->moveX, save->moveY, save->done);
-            highlightChessMove(boardHighlights, move);
-//            printf("MOVE (%d, %d) -> (%d, %d) takes (%c)\n", move.startX, move.startY, move.endX, move.endY, name_piece(move.target));
+            highlight_chess_move(boardHighlights, move);
+//            printf("MOVE (%d, %d) -> (%d, %d) takes (%c)\n", move.startX, move.startY, move.endX, move.endY, get_piece_char_from_number(move.taken));
         }
 //            printf("----------------------------------------\n");
 

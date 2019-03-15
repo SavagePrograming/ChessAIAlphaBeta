@@ -1,5 +1,6 @@
 //
-// Created by wills on 3/12/2019.
+// Created by wills on 3/12/
+// Contains fuctions for running Alpha-Beta on chess moves
 //
 #include <stdint.h>
 #include <stdlib.h>
