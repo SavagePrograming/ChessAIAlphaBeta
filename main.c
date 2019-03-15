@@ -3,54 +3,17 @@
 #include <stdint.h>
 #include <time.h>
 #include "chess_board.h"
-#include "min_max.h"
-#include "chess_moves.h"
-#include "chess_moves_save.h"
-#include "chess_moves_saves_white.h"
-#include "chess_moves_saves_black.h"
+#include "chess_AI.h"
 
 int main() {
-    chessMoveSave save = make_starting_save();
-
-    chessMove move;
-
+    char turn = WHITE_PLAYERS_TURN;
     chessBoard board;
     clear_board(board);
     start_board_no_pawns(board);
 
-    chessBoard boardHighlights;
-    clear_board(boardHighlights);
-    start_board_no_pawns(boardHighlights );
-
-//    load_piece(board, 4, 4, WHITE_PAWN_NUMBER);
-//    load_piece(boardHighlights, 4, 4, WHITE_PAWN_NUMBER);
-//
-//    load_piece(board, 4, 3, BLACK_PAWN_NUMBER);
-//    load_piece(boardHighlights, 4, 3, BLACK_PAWN_NUMBER);
-
-
-//    load_piece(board, 3, 6, BLACK_PAWN_NUMBER);
-//    load_piece(board, 5, 6, BLACK_PAWN_NUMBER);
-    int x = save->X;
-    int y = save->Y;
-    while(save->done != 3){
-        get_moves_black_save(board, &move, save);
-        if (save->X != x || save->Y != y){
-            printf("----------------------------------------\n");
-            print_board(boardHighlights);
-            clear_board(boardHighlights);
-            start_board_no_pawns(boardHighlights);
-            x = save->X;
-            y = save->Y;
-        }
-        if (save->done != 3) {
-//            printf("MOVE (%d, %d) -> (%d, %d) takes (%c)\n", move.startX, move.startY, move.endX, move.endY, get_piece_char_from_number(move.taken));
-//            printf("STATUS (%d, %d) -> (%d, %d) Done:%d\n", save->X, save->Y, save->moveX, save->moveY, save->done);
-            highlight_chess_move(boardHighlights, move);
-//            printf("MOVE (%d, %d) -> (%d, %d) takes (%c)\n", move.startX, move.startY, move.endX, move.endY, get_piece_char_from_number(move.taken));
-        }
-//            printf("----------------------------------------\n");
-
+    while (run_AI_turn(board, &turn)){
+        print_board(board);
+        char wait = getchar();
     }
 
 //    printf("empty score: %d\n", score_board(board));

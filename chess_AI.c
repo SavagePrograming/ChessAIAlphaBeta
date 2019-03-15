@@ -25,12 +25,18 @@ chessMove * get_move_to_move(chessBoard board, char player_turn){
         chessMove * move = malloc(sizeof(chessMove));
         get_moves_white_save(board, move, save);
         break_down_save(save);
+        if (save->done == 3){
+            return NULL;
+        }
         return move;
     }else{
         chessMoveSave save = make_starting_save();
         chessMove * move = malloc(sizeof(chessMove));
         get_moves_black_save(board, move, save);
         break_down_save(save);
+        if (save->done == 3){
+            return NULL;
+        }
         return move;
     }
 
@@ -44,9 +50,14 @@ char get_next_turn(char player_turn){
     }
 }
 
-void run_AI_turn(chessBoard board, char * player_turn){
+uint8_t run_AI_turn(chessBoard board, char * player_turn){
     chessMove * move = get_move_to_move(board, *player_turn);
-    run_chess_move(board, *move);
-    free(move);
-    *player_turn = get_next_turn(*player_turn);
+    if (move == NULL){
+        return 0;
+    }else{
+        run_chess_move(board, *move);
+        free(move);
+        *player_turn = get_next_turn(*player_turn);
+        return 1;
+    }
 }

@@ -161,6 +161,7 @@ uint8_t get_piece_number_from_char(char piece_char) {
  * @param board The board to print
  */
 void print_board(chessBoard board) {
+    printf("------------------------------------------\n");
     for (char y = 0; y < 8; y++) {
         if (y % 2 == 0) {
             printf("|     XXXXX     XXXXX     XXXXX     XXXXX|\n|");
@@ -190,6 +191,7 @@ void print_board(chessBoard board) {
             printf("|XXXXX     XXXXX     XXXXX     XXXXX     |\n");
         }
     }
+    printf("------------------------------------------\n");
 }
 
 /**
