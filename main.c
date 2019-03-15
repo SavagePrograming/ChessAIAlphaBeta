@@ -4,21 +4,23 @@
 #include <time.h>
 #include "chess_board.h"
 #include "chess_AI.h"
+#include "chess.h"
 
 int main() {
     char turn = WHITE_PLAYERS_TURN;
     chessBoard board;
-    clear_board(board);
+    start_board(board);
+
 //    start_board_no_pawns(board);
 
-    load_piece(board, 2,2,BLACK_PAWN_NUMBER);
-    load_piece(board, 5,5,WHITE_PAWN_NUMBER);
+//    load_piece(board, 2,2,BLACK_ROOK_NUMBER);
+//    load_piece(board, 5,5,WHITE_ROOK_NUMBER);
 
     print_board(board);
 
     while (run_AI_turn(board, &turn)){
         print_board(board);
-        char wait = getchar();
+//        char wait = getchar();
     }
 
 //    printf("empty score: %d\n", score_board(board));

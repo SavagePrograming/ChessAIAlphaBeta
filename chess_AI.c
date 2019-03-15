@@ -13,6 +13,7 @@
 #include "chess_moves_saves_white.h"
 #include "chess_alpha_beta.h"
 #include "chess_AI.h"
+#include "chess.h"
 
 /**
  * gets the chess move for an AI to move
@@ -24,24 +25,29 @@ chessMove * get_move_to_move(chessBoard board, char player_turn){
         chessMoveSave save = make_starting_save();
         chessMove * move = malloc(sizeof(chessMove));
         get_moves_white_save(board, move, save);
-        break_down_save(save);
         if (save->done == 3){
-            return NULL;
+            move = NULL;
         }
+        break_down_save(save);
         return move;
     }else{
         chessMoveSave save = make_starting_save();
         chessMove * move = malloc(sizeof(chessMove));
-        get_moves_black_save(board, move, save);
-        break_down_save(save);
+        get_moves_black_save(board, move, save);\
         if (save->done == 3){
-            return NULL;
+            move = NULL;
         }
+        break_down_save(save);
         return move;
     }
 
 }
 
+/**
+ * Returns the turn after this turn
+ * @param player_turn current turn
+ * @return the next turn
+ */
 char get_next_turn(char player_turn){
     if (player_turn == WHITE_PLAYERS_TURN){
         return BLACK_PLAYERS_TURN;
@@ -50,6 +56,12 @@ char get_next_turn(char player_turn){
     }
 }
 
+/**
+ * Runs the AI for a turn
+ * @param board The game board
+ * @param player_turn The current turn
+ * @return True if the game is not done
+ */
 uint8_t run_AI_turn(chessBoard board, char * player_turn){
     chessMove * move = get_move_to_move(board, *player_turn);
     if (move == NULL){
@@ -58,6 +70,6 @@ uint8_t run_AI_turn(chessBoard board, char * player_turn){
         run_chess_move(board, *move);
         free(move);
         *player_turn = get_next_turn(*player_turn);
-        return 1;
+        return validate_board(board);
     }
 }

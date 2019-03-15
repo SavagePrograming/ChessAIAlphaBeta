@@ -17,8 +17,6 @@
 #include "chess_alpha_beta.h"
 #include "chess_AI.h"
 
-#define WHITE_PLAYERS_TURN 'w'
-#define BLACK_PLAYERS_TURN 'b'
 
 chessMove * get_move_to_move(chessBoard board, char player_turn);
 
