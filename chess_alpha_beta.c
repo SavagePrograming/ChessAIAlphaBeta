@@ -88,7 +88,7 @@ int8_t treeless_Chess_alpha_beta_helper(char min_or_max, chessBoard board,
             } else {
                 return bottom;
             }
-        }else{
+        } else {
             if (min_or_max == MIN) {
                 return KING_SCORE;
             } else {
@@ -96,7 +96,16 @@ int8_t treeless_Chess_alpha_beta_helper(char min_or_max, chessBoard board,
             }
         }
     } else {
+#ifdef DEBUG
+        int8_t score = score_board(board);
+        for (uint8_t i = 5 - depth; i > 0; i--){
+            printf("\t");
+        }
+        printf("score %d\n", score);
+        return score;
+#else
         return score_board(board);
+#endif
     }
 }
 
@@ -109,7 +118,7 @@ int8_t treeless_Chess_alpha_beta_helper(char min_or_max, chessBoard board,
  * @return
  */
 int8_t treeless_chess_alpha_beta(char min_or_max, uint32_t *board,
-                                  uint8_t depth, chessMove *move_return) {
+                                 uint8_t depth, chessMove *move_return) {
     int8_t top = MAX_VALUE_DEFAULT;
     int8_t bottom = MIN_VALUE_DEFAULT;
     if (depth > 0) {
@@ -177,7 +186,7 @@ int8_t treeless_chess_alpha_beta(char min_or_max, uint32_t *board,
             } else {
                 return bottom;
             }
-        }else{
+        } else {
             move_return->startX = 0;
             move_return->startY = 0;
             move_return->endY = 0;
@@ -190,7 +199,13 @@ int8_t treeless_chess_alpha_beta(char min_or_max, uint32_t *board,
             }
         }
     } else {
+#ifdef DEBUG
+        int8_t score = score_board(board);
+        printf("score %d\n", score);
+        return score;
+#else
         return score_board(board);
+#endif
     }
 }
 
