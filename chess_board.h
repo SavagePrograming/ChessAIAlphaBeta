@@ -94,4 +94,6 @@ int8_t peice_number_is_blank(uint8_t piece_number);
 
 void start_board_no_pawns(chessBoard board);
 
+void print_board_compressed(chessBoard board, uint8_t indent);
+
 #endif //CHESS_CHESS_BOARD_H

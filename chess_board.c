@@ -195,6 +195,31 @@ void print_board(chessBoard board) {
 }
 
 /**
+* Prints a chess board compressed on to standard out
+* @param board The board to print
+*/
+void print_board_compressed(chessBoard board, uint8_t indent) {
+    for (char y = 0; y < 8; y++) {
+        for (uint8_t i = 0; i < indent; i++){
+            printf("\t");
+        }
+        for (char x = 0; x < 8; x++) {
+            uint8_t piece = get_piece(board, x, y);
+            if (piece == 0) {
+                if ((x + y) % 2 == 0) {
+                    printf(" ");
+                } else {
+                    printf("X");
+                }
+            } else {
+                printf("%c", get_piece_char_from_number(piece));
+            }
+        }
+        printf("\n");
+    }
+}
+
+/**
  * Sets all spaces on the chess board to empty
  * @param board The board to score
  */
@@ -351,13 +376,13 @@ int8_t score_peice_number(uint8_t piece_number){
  */
 int8_t score_row(chessBoard board, int8_t row_index){
     int8_t sum = 0;
-    sum += score_peice_number((uint8_t) (board[row_index] & BM_4_0 >> 28));
-    sum += score_peice_number((uint8_t) (board[row_index] & BM_4_1 >> 24));
-    sum += score_peice_number((uint8_t) (board[row_index] & BM_4_2 >> 20));
-    sum += score_peice_number((uint8_t) (board[row_index] & BM_4_3 >> 16));
-    sum += score_peice_number((uint8_t) (board[row_index] & BM_4_4 >> 12));
-    sum += score_peice_number((uint8_t) (board[row_index] & BM_4_5 >> 8));
-    sum += score_peice_number((uint8_t) (board[row_index] & BM_4_6 >> 4));
+    sum += score_peice_number((uint8_t) ((board[row_index] & BM_4_0) >> 28));
+    sum += score_peice_number((uint8_t) ((board[row_index] & BM_4_1) >> 24));
+    sum += score_peice_number((uint8_t) ((board[row_index] & BM_4_2) >> 20));
+    sum += score_peice_number((uint8_t) ((board[row_index] & BM_4_3) >> 16));
+    sum += score_peice_number((uint8_t) ((board[row_index] & BM_4_4) >> 12));
+    sum += score_peice_number((uint8_t) ((board[row_index] & BM_4_5) >> 8));
+    sum += score_peice_number((uint8_t) ((board[row_index] & BM_4_6) >> 4));
     sum += score_peice_number((uint8_t) (board[row_index] & BM_4_7));
     return sum;
 }

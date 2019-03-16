@@ -15,7 +15,7 @@
 #include "chess_AI.h"
 #include "chess.h"
 
-#define SEARCH_DEPTH 3
+#define SEARCH_DEPTH 2
 
 /**
  * gets the chess move for an AI to move

@@ -13,6 +13,7 @@
 int main() {
     char turn = WHITE_PLAYERS_TURN;
     chessBoard board;
+//    clear_board(board);
     start_board(board);
     chessMove *moves[250];
     uint8_t size = 0;
@@ -20,9 +21,10 @@ int main() {
 
 //    start_board_no_pawns(board);
 
-//    load_piece(board, 2,2,BLACK_ROOK_NUMBER);
+//    load_piece(board, 2,2,WHITE_QUEEN_NUMBER);
 //    load_piece(board, 5,5,WHITE_ROOK_NUMBER);
-
+//    printf("SCORE %d", score_board(board));
+//    return 0;
     print_board(board);
 
 //    chessMove * move = get_move_to_move(board, turn);
