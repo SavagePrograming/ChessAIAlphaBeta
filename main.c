@@ -59,6 +59,7 @@ int main() {
 //    }
     while (run_AI_turn(board, &turn)) {
         print_board(board);
+        printf("Current Score: %d", score_board(board));
 //        char wait = getchar();
     }
 

@@ -50,8 +50,8 @@
 #define ROOK_SCORE 5
 #define BISHOP_SCORE 5
 #define KNIGHT_SCORE 5
-#define QUEEN_SCORE 22
-#define KING_SCORE 60
+#define QUEEN_SCORE 21
+#define KING_SCORE 61
 
 #define OTHER_SCORE 0
 
