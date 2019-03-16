@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "min_max.h"
 #include "chess_alpha_beta.h"
 #include "chess_board.h"
@@ -15,6 +16,7 @@
 
 #define SIZE 5
 #define DEBUG_IGNORE_DEPTH -1
+#define REPLACEMENT_PROBABILITY 50
 
 /**
  * Internal function for running AlphaBeta treeless for chess
@@ -137,6 +139,7 @@ int8_t treeless_Chess_alpha_beta_helper(char min_or_max, chessBoard board,
  */
 int8_t treeless_chess_alpha_beta_random(char min_or_max, uint32_t *board,
                                  uint8_t depth, chessMove *move_return) {
+    srand(time(0));
     int8_t top = MAX_VALUE_DEFAULT;
     int8_t bottom = MIN_VALUE_DEFAULT;
 #ifdef DEBUG
@@ -178,6 +181,8 @@ int8_t treeless_chess_alpha_beta_random(char min_or_max, uint32_t *board,
                 if (top > out) {
                     copy_move(move, move_return);
                     top = out;
+                }else if (top == out && (rand() % 100) <= REPLACEMENT_PROBABILITY){
+                    copy_move(move, move_return);
                 }
             } else {
                 if (top < out) {
@@ -189,6 +194,8 @@ int8_t treeless_chess_alpha_beta_random(char min_or_max, uint32_t *board,
                 if (bottom < out) {
                     copy_move(move, move_return);
                     bottom = out;
+                }else if (bottom == out && (rand() % 100) <= REPLACEMENT_PROBABILITY){
+                    copy_move(move, move_return);
                 }
             }
 
