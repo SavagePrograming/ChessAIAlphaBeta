@@ -15,7 +15,7 @@
 #include "chess_AI.h"
 #include "chess.h"
 
-#define SEARCH_DEPTH 2
+#define SEARCH_DEPTH 5
 
 /**
  * gets the chess move for an AI to move
@@ -82,6 +82,8 @@ uint8_t run_AI_turn(chessBoard board, char * player_turn){
     if (move == NULL){
         return 0;
     }else{
+        printf("%c AI MOVES: ", *player_turn);
+        print_move(*move);
         run_chess_move(board, *move);
         free(move);
         *player_turn = get_next_turn(*player_turn);
