@@ -15,6 +15,8 @@
 #include "chess_AI.h"
 #include "chess.h"
 
+#define SEARCH_DEPTH 3
+
 /**
  * gets the chess move for an AI to move
  * @param board The board to use for move calculation
@@ -25,7 +27,12 @@ chessMove * get_move_to_move(chessBoard board, char player_turn){
 
         chessMove * move = malloc(sizeof(chessMove));
 
-        treeless_chess_alpha_beta(MAX, board, 1, move);
+        int8_t out = treeless_chess_alpha_beta(MAX, board, SEARCH_DEPTH, move);
+
+#ifdef DEBUG
+        printf("FINAL MAX SCORE: %d\n", out);
+        print_move(*move);
+#endif
 
         if (move->taken == 15){
             return NULL;
@@ -35,7 +42,12 @@ chessMove * get_move_to_move(chessBoard board, char player_turn){
     }else{
         chessMove * move = malloc(sizeof(chessMove));
 
-        treeless_chess_alpha_beta(MIN, board, 1, move);
+        int8_t out = treeless_chess_alpha_beta(MIN, board, SEARCH_DEPTH, move);
+
+#ifdef DEBUG
+        printf("FINAL MIN SCORE: %d\n", out);
+        print_move(*move);
+#endif
 
         if (move->taken == 15){
             return NULL;

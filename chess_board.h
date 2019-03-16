@@ -4,6 +4,7 @@
 
 #ifndef CHESS_CHESS_BOARD_H
 #define CHESS_CHESS_BOARD_H
+//=============Debugging=========
 
 //=========CHESS NUMBERS===========
 #define BLANK_NUMBER 0

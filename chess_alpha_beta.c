@@ -38,9 +38,21 @@ int8_t treeless_Chess_alpha_beta_helper(char min_or_max, chessBoard board,
         uint8_t run = 0;
         while (save->done != 3) {
             run = 1;
+#ifdef DEBUG
+            for (uint8_t i = 5 - depth; i > 0; i--){
+                printf("\t");
+            }
+            print_move(*move);
+#endif
             run_chess_move(board, *move);
             int8_t out = treeless_Chess_alpha_beta_helper(get_min_or_max(min_or_max), board, top, bottom, depth - 1);
             reverse_chess_move(board, *move);
+#ifdef DEBUG
+            for (uint8_t i = 5 - depth; i > 0; i--){
+                printf("\t");
+            }
+            printf("Score %d\n", out);
+#endif
             if (min_or_max == MIN) {
                 if (bottom > out) {
                     break_down_save(save);
@@ -112,10 +124,19 @@ int8_t treeless_chess_alpha_beta(char min_or_max, uint32_t *board,
         uint8_t run = 0;
         while (save->done != 3) {
             run = 1;
+//            print_move(*move);
+//            for (uint8_t i = 5 - depth; i > 0; i--){
+//                printf("\t");
+//            }
+#ifdef DEBUG
             print_move(*move);
+#endif
             run_chess_move(board, *move);
             int8_t out = treeless_Chess_alpha_beta_helper(get_min_or_max(min_or_max), board, top, bottom, depth - 1);
+
+#ifdef DEBUG
             printf("Score %d \n", out);
+#endif
             reverse_chess_move(board, *move);
             if (min_or_max == MIN) {
                 if (bottom > out) {
